@@ -19,6 +19,3 @@
 #git clone https://github.com/messense/aliyundrive-webdav package/messense
 git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter
 git clone https://github.com/lwb1978/openwrt-gecoosac package/openwrt-gecoosac
-git clone https://github.com/tcsr200722/luci-app-samba package/samba
-
-echo 'src-git istore https://github.com/linkease/istore;main' >> feeds.conf.default
