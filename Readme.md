@@ -53,8 +53,8 @@ strings /lib/firmware/7986_WOCPU1_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
 默认使用GSW交换机驱动，可选DSA交换机驱动。  
 GSW：Gigabit Switch swconfig 模式，有交换机配置插件，不过京东云百里AX6000的WAN是单独接CPU的2.5G PHY RTL8221B，不接在MT7531交换机上，所以WAN不支持在交换机配置插件中设置VLAN。  
 DSA：Distributed Switch Architecture 分布式交换架构模式，DSA没有单独的交换机配置插件，但在“网口”-“接口”-“设备”选项卡中的br-lan设备中的网桥VLAN过滤中可以查看网口状态设置VLAN。  
-百里原厂固件使用的是DSA，hanwckf大佬源码中百里的交换机驱动先前是DSA，在WAN、LAN互换时硬件加速可能失效。  
-目前hanwckf大佬源码中百里已改为使用GSW，使用GSW在WAN、LAN互换时硬件加速正常。  
+百里原厂固件使用的是DSA，hanwckf大佬源码中百里的交换机驱动先前是DSA，听说在WAN、LAN互换时硬件加速可能失效，但是我测试了是正常的。  
+目前hanwckf大佬源码中百里已改为使用GSW，使用GSW在WAN、LAN互换时硬件加速正常，所以DSA、GSW随便用吧。  
 两者具体区别可以参考OpenWrt社区资料：[converting-to-dsa](https://openwrt.org/docs/guide-user/network/dsa/converting-to-dsa) [dsa-mini-tutorial](https://openwrt.org/docs/guide-user/network/dsa/dsa-mini-tutorial)  
 
 - #### 4. Use luci-app-mtk wifi config
