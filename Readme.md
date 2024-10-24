@@ -24,10 +24,29 @@
 设置LAN IP地址（路由器登录地址），默认192.168.1.1。  
 
 - #### 2. Choose WiFi Driver
-默认使用WiFi驱动版本v7.6.7.2，可选旧版驱动v7.6.6.1。  
-SSH查看WiFi驱动版本：  
+默认使用WiFi驱动版本v7.6.7.2-fw-20240823(recommend)。mt_wifi的firmware可选，warp默认使用驱动自带，不可选。  
+驱动版本v7.6.7.2-fw-default不建议使用，我使用5G无线，电脑打CS2同时手机刷视频，CS2会延迟增高卡顿。  
+v7.6.7.2-fw-20240823(recommend) 推荐，使用[mtk-openwrt-feeds(20240823)](https://git01.mediatek.com/plugins/gitiles/openwrt/feeds/mtk-openwrt-feeds/+/0fdbc0e6d84bbc0216da2842a494bdf01f745c6c)  
+v7.6.6.1-fw-20230808(recommend) 推荐，使用提取自TP-XDR6088固件的fw-20230808  
+v7.6.7.2-fw-default 使用驱动包自带firmware fw-20231229  
+v7.6.6.1-fw-default 使用驱动包自带firmware fw-20220906  
+v7.6.6.1-fw-20221208 使用mt7986-7.6.7.0-20221209-b9c02f-obj驱动包的fw-20221208  
+v7.6.6.1-fw-20230421 使用mtk-openwrt-feeds(20230421)的fw-20230421  
+v7.6.6.1-fw-20231024 使用mtk-openwrt-feeds(20231024)的fw-20231024  
 ```
-iwpriv rax0 get_driverinfo
+# SSH查看内核版本
+uname -a
+# 查看WiFi驱动版本
+iwpriv ra0 get_driverinfo
+# 查看WiFi驱动mt_wifi mt7986 firmware版本
+strings /lib/firmware/7986_WACPU_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/mt7986_patch_e1_hdr.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/mt7986_patch_e1_hdr_mt7975.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/WIFI_RAM_CODE_MT7986.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/WIFI_RAM_CODE_MT7986_MT7975.bin | grep -E '202[0-9]{6}'
+# 查看WiFi驱动warp mt7986 firmware版本
+strings /lib/firmware/7986_WOCPU0_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/7986_WOCPU1_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
 ```
 
 - #### 3. Choose Switch Driver
@@ -96,10 +115,28 @@ RAX3000Z增强版（XR30-eMMC）的eMMC默认使用52MHz频率
 设置LAN IP地址（路由器登录地址），默认192.168.1.1。  
 
 - #### 2. Choose WiFi Driver
-默认使用WiFi驱动版本v7.6.7.2，可选旧版驱动v7.6.6.1。  
-SSH查看WiFi驱动版本：  
+默认使用WiFi驱动版本v7.6.7.2-fw-20240823(recommend)。mt_wifi的firmware可选，warp默认使用驱动自带，不可选。  
+驱动版本v7.6.7.2-fw-default在mt7986机子上，我使用5G无线，电脑打CS2同时手机刷视频，CS2会延迟增高卡顿。  
+【mt7981的机子上未测试，建议直接使用推荐的选项。】  
+v7.6.7.2-fw-20240823(recommend) 推荐，使用[mtk-openwrt-feeds(20240823)](https://git01.mediatek.com/plugins/gitiles/openwrt/feeds/mtk-openwrt-feeds/+/0fdbc0e6d84bbc0216da2842a494bdf01f745c6c)  
+v7.6.6.1-fw-20230306(recommend) 推荐，使用提取自H3C-NX30Pro固件的fw-20230306  
+v7.6.7.2-fw-default 使用驱动包自带firmware fw-20231229  
+v7.6.6.1-fw-default 使用驱动包自带firmware fw-20220906  
+v7.6.6.1-fw-20230330 使用提取自TP-XDR3030固件的fw-20230330  
+v7.6.6.1-fw-20230411 使用提取自H3C-NX30Pro固件的fw-20230411  
+v7.6.6.1-fw-20230717 使用提取自Xiaomi-AX3000T固件的fw-20230717  
+v7.6.6.1-fw-20231024 使用mtk-openwrt-feeds(20231024)的fw-20231024  
 ```
-iwpriv rax0 get_driverinfo
+# SSH查看内核版本
+uname -a
+# 查看WiFi驱动版本
+iwpriv ra0 get_driverinfo
+# 查看WiFi驱动mt_wifi mt7981 firmware版本
+strings /lib/firmware/7981_WACPU_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/mt7981_patch_e1_hdr.bin | grep -E '202[0-9]{6}'
+strings /lib/firmware/WIFI_RAM_CODE_MT7981.bin | grep -E '202[0-9]{6}'
+# 查看WiFi驱动warp mt7981 firmware版本
+strings /lib/firmware/7981_WOCPU0_RAM_CODE_release.bin | grep -E '202[0-9]{6}'
 ```
 
 - #### 3. Use nx30pro eeprom and fixed WiFi MAC address
