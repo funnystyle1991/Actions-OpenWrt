@@ -250,16 +250,24 @@ jobs:
     - name: 查看磁盘使用情况
       if: (!cancelled())
       run: df -hT
-
-    - name: 整理文件并重命名
+      
+    - name: 整理文件并重命
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: | 
+        # 进入固件目录
         cd openwrt/bin/targets/*/*
+    
+        # 删除不必要的 packages 目录
         rm -rf packages
-        sudo apt-get update -qq
-        sudo apt-get install -y rename || sudo apt-get install -y prename
-        rename 's/.*${{ env.DEVICE_NAME }}/${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}${{ env.WIFI_VERSION }}${{ env.SWITCH }}${{ env.BUILD_DOCKERMAN }}/' *
+    
+        # 方案1：使用原生 mv 命令重命名（100% 兼容所有系统）
+        for file in *${{ env.DEVICE_NAME }}*; do
+        new_name="${{ env.FILE_DATE }}-${{ env.OPENWRT_NAME }}-${{ env.DEVICE_NAME }}${{ env.WIFI_VERSION }}${{ env.SWITCH }}${{ env.BUILD_DOCKERMAN }}${file#*${{ env.DEVICE_NAME }}}"
+        mv -- "$file" "$new_name"
+        done
+    
+        # 设置输出（保持与原代码一致）
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "status=success" >> $GITHUB_OUTPUT
 
